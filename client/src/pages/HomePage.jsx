@@ -80,6 +80,9 @@ function HomePage() {
         <div className="editor-panel">
           <div className="panel-header">
             <div className="panel-title">Source Code</div>
+            <button className="run-btn" onClick={handleRun} disabled={loading}>
+              {loading ? "Processing..." : "Run Action"}
+            </button>
           </div>
           <div className="editor-content">
             <CodeEditor
@@ -124,10 +127,6 @@ function HomePage() {
                 Optimize Code
               </button>
             </div>
-
-            <button className="run-btn" onClick={handleRun} disabled={loading}>
-              {loading ? "Processing..." : "Run Action"}
-            </button>
           </div>
         </div>
 
