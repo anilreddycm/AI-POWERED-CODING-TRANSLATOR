@@ -1,0 +1,82 @@
+[
+  {
+    "userId": "rviff0c",
+    "sourceLanguage": "javascript",
+    "targetLanguage": "python",
+    "sourceCode": "// Write or paste your code here to begin\nfunction fibonacci(n) {\n  if (n <= 1) return n;\n  return fibonacci(n - 1) + fibonacci(n - 2);\n}\n",
+    "translatedCode": "# Write or paste your code here to begin\ndef fibonacci(n):\n  if n <= 1:\n    return n\n  return fibonacci(n - 1) + fibonacci(n - 2)",
+    "action": "translate",
+    "_id": "44hu0ph",
+    "createdAt": "2026-05-27T17:16:49.354Z"
+  },
+  {
+    "userId": "rviff0c",
+    "sourceLanguage": "javascript",
+    "targetLanguage": "python",
+    "sourceCode": "// Write or paste your code here to begin\nconsole.log(\"anil\")",
+    "translatedCode": "# Write or paste your code here to begin\nprint(\"anil\")",
+    "action": "translate",
+    "_id": "s3j1z8u",
+    "createdAt": "2026-05-27T17:17:54.606Z"
+  },
+  {
+    "userId": "rviff0c",
+    "sourceLanguage": "javascript",
+    "targetLanguage": "typescript",
+    "sourceCode": "const component=()=>{\n  console.log(\"anil\")\n}",
+    "translatedCode": "const component = () => {\n  console.log(\"anil\");\n};",
+    "action": "translate",
+    "_id": "ncignc9",
+    "createdAt": "2026-05-27T17:21:54.215Z"
+  },
+  {
+    "userId": "rviff0c",
+    "sourceLanguage": "javascript",
+    "targetLanguage": "typescript",
+    "sourceCode": "hi",
+    "translatedCode": "hi",
+    "action": "translate",
+    "_id": "fgg2dv4",
+    "createdAt": "2026-05-27T17:22:16.050Z"
+  },
+  {
+    "userId": "rviff0c",
+    "sourceLanguage": "javascript",
+    "targetLanguage": "typescript",
+    "sourceCode": "import Editor from \"@monaco-editor/react\";\nimport { MONACO_LANGUAGE_MAP } from \"../constants/languages.js\";\n\nfunction CodeEditor({ code, onChange, language, readOnly = false }) {\n    return (\n        <Editor\n            height=\"100%\"\n            language={MONACO_LANGUAGE_MAP[language] || \"plaintext\"}\n            value={code}\n            onChange={(v) => onChange(v || \"\")}\n            theme=\"vs-dark\"\n            options={{\n                fontSize: 14,\n                fontFamily: \"'JetBrains Mono', monospace\",\n                minimap: { enabled: false },\n                scrollBeyondLastLine: false,\n                wordWrap: \"on\",\n                readOnly,\n                padding: { top: 14, bottom: 14 },\n                automaticLayout: true,\n                tabSize: 2,\n                lineNumbers: \"on\",\n                renderLineHighlight: \"all\",\n                bracketPairColorization: { enabled: true },\n                autoClosingBrackets: \"always\",\n                autoClosingQuotes: \"always\",\n                matchBrackets: \"always\",\n                formatOnPaste: true,\n                suggestOnTriggerCharacters: true,\n                folding: true,\n                smoothScrolling: true,\n                fixedOverflowWidgets: true,\n            }}\n            loading={\n                <div className=\"loading-state\">\n                    <p>Loading editor...</p>\n                </div>\n            }\n        />\n    );\n}\n\nexport default CodeEditor;",
+    "translatedCode": "import Editor from \"@monaco-editor/react\";\nimport { MONACO_LANGUAGE_MAP } from \"../constants/languages.js\";\nimport React from \"react\";\n\ninterface CodeEditorProps {\n    code: string;\n    onChange: (value: string) => void;\n    language: keyof typeof MONACO_LANGUAGE_MAP | string; // Allow any string, but suggest known languages\n    readOnly?: boolean;\n}\n\nfunction CodeEditor({ code, onChange, language, readOnly = false }: CodeEditorProps): React.JSX.Element {\n    return (\n        <Editor\n            height=\"100%\"\n            language={MONACO_LANGUAGE_MAP[language as keyof typeof MONACO_LANGUAGE_MAP] || \"plaintext\"}\n            value={code}\n            onChange={(v) => onChange(v || \"\")}\n            theme=\"vs-dark\"\n            options={{\n                fontSize: 14,\n                fontFamily: \"'JetBrains Mono', monospace\",\n                minimap: { enabled: false },\n                scrollBeyondLastLine: false,\n                wordWrap: \"on\",\n                readOnly,\n                padding: { top: 14, bottom: 14 },\n                automaticLayout: true,\n                tabSize: 2,\n                lineNumbers: \"on\",\n                renderLineHighlight: \"all\",\n                bracketPairColorization: { enabled: true },\n                autoClosingBrackets: \"always\",\n                autoClosingQuotes: \"always\",\n                matchBrackets: \"always\",\n                formatOnPaste: true,\n                suggestOnTriggerCharacters: true,\n                folding: true,\n                smoothScrolling: true,\n                fixedOverflowWidgets: true,\n            }}\n            loading={\n                <div className=\"loading-state\">\n                    <p>Loading editor...</p>\n                </div>\n            }\n        />\n    );\n}\n\nexport default CodeEditor;",
+    "action": "translate",
+    "_id": "ukifv4d",
+    "createdAt": "2026-05-27T17:22:50.062Z"
+  },
+  {
+    "userId": "rviff0c",
+    "sourceLanguage": "javascript",
+    "targetLanguage": "python",
+    "sourceCode": "import Editor from \"@monaco-editor/react\";\nimport { MONACO_LANGUAGE_MAP } from \"../constants/languages.js\";\n\nfunction CodeEditor({ code, onChange, language, readOnly = false }) {\n    return (\n        <Editor\n            height=\"100%\"\n            language={MONACO_LANGUAGE_MAP[language] || \"plaintext\"}\n            value={code}\n            onChange={(v) => onChange(v || \"\")}\n            theme=\"vs-dark\"\n            options={{\n                fontSize: 14,\n                fontFamily: \"'JetBrains Mono', monospace\",\n                minimap: { enabled: false },\n                scrollBeyondLastLine: false,\n                wordWrap: \"on\",\n                readOnly,\n                padding: { top: 14, bottom: 14 },\n                automaticLayout: true,\n                tabSize: 2,\n                lineNumbers: \"on\",\n                renderLineHighlight: \"all\",\n                bracketPairColorization: { enabled: true },\n                autoClosingBrackets: \"always\",\n                autoClosingQuotes: \"always\",\n                matchBrackets: \"always\",\n                formatOnPaste: true,\n                suggestOnTriggerCharacters: true,\n                folding: true,\n                smoothScrolling: true,\n                fixedOverflowWidgets: true,\n            }}\n            loading={\n                <div className=\"loading-state\">\n                    <p>Loading editor...</p>\n                </div>\n            }\n        />\n    );\n}\n\nexport default CodeEditor;",
+    "translatedCode": "# This is a placeholder for MONACO_LANGUAGE_MAP.\n# In a real application, this would likely be imported from a separate constants file,\n# similar to how it's imported in the original JavaScript code.\nMONACO_LANGUAGE_MAP = {\n    \"javascript\": \"javascript\",\n    \"python\": \"python\",\n    \"typescript\": \"typescript\",\n    \"html\": \"html\",\n    \"css\": \"css\",\n    \"json\": \"json\",\n    \"markdown\": \"markdown\",\n    \"xml\": \"xml\",\n    \"java\": \"java\",\n    \"csharp\": \"csharp\",\n    \"go\": \"go\",\n    \"ruby\": \"ruby\",\n    \"php\": \"php\",\n    \"swift\": \"swift\",\n    \"kotlin\": \"kotlin\",\n    \"rust\": \"rust\",\n    \"sql\": \"sql\",\n    \"yaml\": \"yaml\",\n    \"shell\": \"shell\",\n    \"dockerfile\": \"dockerfile\",\n    \"bat\": \"bat\",\n    \"clojure\": \"clojure\",\n    \"coffeescript\": \"coffeescript\",\n    \"cpp\": \"cpp\",\n    \"c\": \"c\",\n    \"fsharp\": \"fsharp\",\n    \"graphql\": \"graphql\",\n    \"handlebars\": \"handlebars\",\n    \"ini\": \"ini\",\n    \"julia\": \"julia\",\n    \"less\": \"less\",\n    \"lua\": \"lua\",\n    \"mips\": \"mips\",\n    \"msdax\": \"msdax\",\n    \"mysql\": \"mysql\",\n    \"objective-c\": \"objective-c\",\n    \"pascal\": \"pascal\",\n    \"perl\": \"perl\",\n    \"pgsql\": \"pgsql\",\n    \"powershell\": \"powershell\",\n    \"pug\": \"pug\",\n    \"r\": \"r\",\n    \"razor\": \"razor\",\n    \"redis\": \"redis\",\n    \"redshift\": \"redshift\",\n    \"restructuredtext\": \"restructuredtext\",\n    \"scss\": \"scss\",\n    \"scheme\": \"scheme\",\n    \"sb\": \"sb\",\n    \"solidity\": \"solidity\",\n    \"st\": \"st\",\n    \"tcl\": \"tcl\",\n    \"twig\": \"twig\",\n    \"vb\": \"vb\",\n    \"xquery\": \"xquery\",\n}\n\n\ndef code_editor(code, on_change, language, read_only=False):\n    \"\"\"\n    Translates the configuration of a Monaco Editor React component into a Python dictionary.\n    This function represents the props and options that would be passed to the Monaco Editor.\n    Since Python does not have a direct equivalent for React components or JSX,\n    this function returns a dictionary representing the editor's configuration.\n    \"\"\"\n\n    # Map the language using the MONACO_LANGUAGE_MAP, defaulting to 'plaintext'\n    editor_language = MONACO_LANGUAGE_MAP.get(language, \"plaintext\")\n\n    # Define the options for the editor\n    options = {\n        \"fontSize\": 14,\n        \"fontFamily\": \"'JetBrains Mono', monospace\",\n        \"minimap\": {\"enabled\": False},\n        \"scrollBeyondLastLine\": False,\n        \"wordWrap\": \"on\",\n        \"readOnly\": read_only,\n        \"padding\": {\"top\": 14, \"bottom\": 14},\n        \"automaticLayout\": True,\n        \"tabSize\": 2,\n        \"lineNumbers\": \"on\",\n        \"renderLineHighlight\": \"all\",\n        \"bracketPairColorization\": {\"enabled\": True},\n        \"autoClosingBrackets\": \"always\",\n        \"autoClosingQuotes\": \"always\",\n        \"matchBrackets\": \"always\",\n        \"formatOnPaste\": True,\n        \"suggestOnTriggerCharacters\": True,\n        \"folding\": True,\n        \"smoothScrolling\": True,\n        \"fixedOverflowWidgets\": True,\n    }\n\n    # Define the loading state content. In JS, this is JSX; here, it's a dictionary\n    # representing the content and potential styling/class.\n    loading_state = {\n        \"className\": \"loading-state\",\n        \"content\": \"Loading editor...\",\n    }\n\n    # The onChange handler in JS is `(v) => onChange(v || \"\")`.\n    # In Python, we can represent this as a lambda function that wraps the provided `on_change` callable.\n    wrapped_on_change = lambda v: on_change(v or \"\")\n\n    # Return a dictionary representing the full configuration of the editor component.\n    return {\n        \"height\": \"100%\",\n        \"language\": editor_language,\n        \"value\": code,\n        \"onChange\": wrapped_on_change,\n        \"theme\": \"vs-dark\",\n        \"options\": options,\n        \"loading\": loading_state,\n    }\n\n# In Python, defining the function makes it available for import.\n# There's no direct equivalent to `export default` syntax.",
+    "action": "translate",
+    "_id": "js17udr",
+    "createdAt": "2026-05-27T17:23:53.715Z"
+  },
+  {
+    "userId": "rviff0c",
+    "sourceLanguage": "javascript",
+    "targetLanguage": "javascript",
+    "sourceCode": "print(\"anil\")",
+    "translatedCode": "print(\"anil\")",
+    "action": "translate",
+    "_id": "p2fw3sa",
+    "createdAt": "2026-05-27T17:25:09.311Z"
+  },
+  {
+    "userId": "rviff0c",
+    "sourceLanguage": "javascript",
+    "targetLanguage": "java",
+    "sourceCode": "print(\"anil\")",
+    "translatedCode": "class Main {\n    public static void main(String[] args) {\n        System.out.println(\"anil\");\n    }\n}",
+    "action": "translate",
+    "_id": "ts81vv2",
+    "createdAt": "2026-05-27T17:25:19.758Z"
+  }
+]
