@@ -2,7 +2,8 @@ import nodemailer from "nodemailer";
 
 // Retrieve email configurations from environment variables
 const emailUser = process.env.EMAIL_USER;
-const emailPass = process.env.EMAIL_PASS;
+// Strip any spaces from the App Password if present (Google presents them with spaces)
+const emailPass = process.env.EMAIL_PASS ? process.env.EMAIL_PASS.replace(/\s+/g, "") : null;
 const emailService = process.env.EMAIL_SERVICE || "gmail";
 
 const isEmailConfigured = emailUser && emailPass;
@@ -33,8 +34,11 @@ export const sendOTPEmail = async (toEmail, otpCode, userName) => {
   }
 
   try {
+    // Using direct SMTP connection configurations for Gmail is highly reliable
     const transporter = nodemailer.createTransport({
-      service: emailService,
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true, // Use SSL/TLS
       auth: {
         user: emailUser,
         pass: emailPass,
@@ -61,10 +65,10 @@ export const sendOTPEmail = async (toEmail, otpCode, userName) => {
     };
 
     const info = await transporter.sendMail(mailOptions);
-    console.log(`[EMAIL SERVICE] Verification email sent: ${info.messageId}`);
+    console.log(`[EMAIL SERVICE] Verification email sent successfully to ${toEmail}: ${info.messageId}`);
     return true;
   } catch (error) {
-    console.error("[EMAIL SERVICE ERROR] Failed to send email:", error.message);
+    console.error("[EMAIL SERVICE ERROR] Failed to send email via SMTP:", error.message);
     // Fallback to console print even if configured SMTP fails
     console.warn(`[EMAIL SERVICE FALLBACK] Showing OTP here due to SMTP failure: ${otpCode}`);
     return false;
