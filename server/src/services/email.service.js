@@ -45,21 +45,25 @@ export const sendOTPEmail = async (toEmail, otpCode, userName) => {
       },
     });
 
+    // Simplify the email and supply both plain-text and HTML fallback to improve deliverability to Primary inbox
     const mailOptions = {
       from: `"CodeTranslator" <${emailUser}>`,
       to: toEmail,
-      subject: "Verify Your Email Address - CodeTranslator",
+      subject: `Your Verification Code: ${otpCode}`,
+      text: `Hello ${userName || "User"},\n\nYour verification code is: ${otpCode}\n\nThis code will expire in 10 minutes.\n\nBest regards,\nCodeTranslator Support`,
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 500px; margin: 0 auto; padding: 20px; border: 1px solid #e5e5e5; border-radius: 8px;">
-          <h2 style="color: #4f46e5; text-align: center; margin-bottom: 24px;">Verify Your Email</h2>
-          <p>Hello ${userName || "there"},</p>
-          <p>Thank you for registering on CodeTranslator! To complete your registration, please use the 6-digit verification code below:</p>
-          <div style="background-color: #f3f4f6; padding: 16px; border-radius: 6px; text-align: center; font-size: 28px; font-weight: bold; letter-spacing: 4px; margin: 24px 0; color: #111827;">
+        <div style="font-family: Arial, sans-serif; font-size: 16px; color: #111827; line-height: 1.6; max-width: 480px; margin: 0 auto; padding: 10px;">
+          <p>Hello ${userName || "User"},</p>
+          <p>Your CodeTranslator verification code is:</p>
+          <div style="font-size: 26px; font-weight: bold; color: #4f46e5; margin: 15px 0; font-family: monospace;">
             ${otpCode}
           </div>
-          <p style="color: #6b7280; font-size: 14px;">This code will expire in 10 minutes. If you did not request this, you can safely ignore this email.</p>
-          <hr style="border: 0; border-top: 1px solid #e5e5e5; margin: 24px 0;" />
-          <p style="font-size: 12px; color: #9ca3af; text-align: center;">CodeTranslator Assistant</p>
+          <p>This code will expire in 10 minutes.</p>
+          <br>
+          <p style="color: #6b7280; font-size: 14px; margin-top: 20px;">
+            Best regards,<br>
+            <strong>CodeTranslator Support</strong>
+          </p>
         </div>
       `,
     };
