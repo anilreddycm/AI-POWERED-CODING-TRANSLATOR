@@ -53,70 +53,97 @@ function HomePage() {
   };
 
   return (
-    <div className="home-layout">
-      {/* Editor Panel */}
-      <div className="editor-panel">
-        <div className="panel-header">
-          <div className="panel-title">Source Code</div>
-          <div className="panel-controls">
-            <LanguageSelector
-              value={sourceLang}
-              onChange={setSourceLang}
-              disabled={loading}
-            />
-          </div>
-        </div>
-        <div className="editor-content">
-          <CodeEditor
-            code={code}
-            onChange={setCode}
-            language={sourceLang}
-            readonly={loading}
+    <div className="home-page-container">
+      {/* Translation Bar */}
+      <div className="translation-bar">
+        <div className="translation-bar-group">
+          <span className="translation-bar-label">Source Language</span>
+          <LanguageSelector
+            value={sourceLang}
+            onChange={setSourceLang}
+            disabled={loading}
           />
         </div>
-        <div className="panel-footer">
-          <div className="panel-controls">
-            <select
-              className="action-selector"
-              value={action}
-              onChange={(e) => setAction(e.target.value)}
-              disabled={loading}
-            >
-              <option value="translate">Translate Code</option>
-              <option value="complexity">Analyze Complexity</option>
-              <option value="explain">Explain Code</option>
-              <option value="optimize">Optimize Code</option>
-            </select>
-
-            {action === "translate" && (
-              <>
-                <span style={{ fontSize: "13px", color: "#666666" }}>to</span>
-                <LanguageSelector
-                  value={targetLang}
-                  onChange={setTargetLang}
-                  disabled={loading}
-                />
-              </>
-            )}
-          </div>
-          <button className="run-btn" onClick={handleRun} disabled={loading}>
-            {loading ? "Processing..." : "Run Action"}
-          </button>
+        <span className="translation-bar-to">Translate To</span>
+        <div className="translation-bar-group">
+          <span className="translation-bar-label">Target Language</span>
+          <LanguageSelector
+            value={targetLang}
+            onChange={setTargetLang}
+            disabled={loading}
+          />
         </div>
       </div>
 
-      {/* Output Panel */}
-      <div className="output-panel">
-        <div className="panel-header">
-          <div className="panel-title">Output Result</div>
+      <div className="home-layout">
+        {/* Editor Panel */}
+        <div className="editor-panel">
+          <div className="panel-header">
+            <div className="panel-title">Source Code</div>
+          </div>
+          <div className="editor-content">
+            <CodeEditor
+              code={code}
+              onChange={setCode}
+              language={sourceLang}
+              readonly={loading}
+            />
+          </div>
+          <div className="panel-footer">
+            <div className="action-buttons-group">
+              <button
+                type="button"
+                className={`action-btn ${action === "translate" ? "active" : ""}`}
+                onClick={() => setAction("translate")}
+                disabled={loading}
+              >
+                Translate Code
+              </button>
+              <button
+                type="button"
+                className={`action-btn ${action === "complexity" ? "active" : ""}`}
+                onClick={() => setAction("complexity")}
+                disabled={loading}
+              >
+                Analyze Complexity
+              </button>
+              <button
+                type="button"
+                className={`action-btn ${action === "explain" ? "active" : ""}`}
+                onClick={() => setAction("explain")}
+                disabled={loading}
+              >
+                Explain Code
+              </button>
+              <button
+                type="button"
+                className={`action-btn ${action === "optimize" ? "active" : ""}`}
+                onClick={() => setAction("optimize")}
+                disabled={loading}
+              >
+                Optimize Code
+              </button>
+            </div>
+
+            <button className="run-btn" onClick={handleRun} disabled={loading}>
+              {loading ? "Processing..." : "Run Action"}
+            </button>
+          </div>
         </div>
-        <div className="output-content">
-          <OutputPannel
-            result={result}
-            action={action}
-            targetLanguage={targetLang}
-            loading={loading}
-          />
+
+        {/* Output Panel */}
+        <div className="output-panel">
+          <div className="panel-header">
+            <div className="panel-title">Output Result</div>
+          </div>
+          <div className="output-content">
+            <OutputPannel
+              result={result}
+              action={action}
+              targetLanguage={targetLang}
+              loading={loading}
+            />
+          </div>
         </div>
       </div>
     </div>
