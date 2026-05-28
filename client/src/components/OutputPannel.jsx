@@ -1,12 +1,48 @@
+import { useState, useEffect } from "react";
 import CodeEditor from "./CodeEditor";
 import "../styles/outputs.css";
 
 function OutputPannel({ result, action, targetLanguage, loading }) {
+  const [statusIdx, setStatusIdx] = useState(0);
+
+  const statuses = [
+    "Analyzing syntax trees...",
+    "Converting logic structures...",
+    "Optimizing performance loops...",
+    "Finalizing code layout..."
+  ];
+
+  useEffect(() => {
+    if (!loading) return;
+    setStatusIdx(0);
+    const interval = setInterval(() => {
+      setStatusIdx((prev) => (prev + 1) % statuses.length);
+    }, 1500);
+    return () => clearInterval(interval);
+  }, [loading]);
+
   if (loading) {
     return (
-      <div className="output-loading">
-        <div className="spinner"></div>
-        <p>AI is processing your request...</p>
+      <div className="skeleton-container">
+        <div className="skeleton-header">
+          <div className="skeleton-dot"></div>
+          <div className="skeleton-dot"></div>
+          <div className="skeleton-dot"></div>
+        </div>
+        <div className="skeleton-lines">
+          <div className="skeleton-line" style={{ width: "80%" }}></div>
+          <div className="skeleton-line" style={{ width: "95%" }}></div>
+          <div className="skeleton-line" style={{ width: "60%" }}></div>
+          <div className="skeleton-line" style={{ width: "75%" }}></div>
+          <div className="skeleton-line" style={{ width: "90%" }}></div>
+          <div className="skeleton-line" style={{ width: "40%" }}></div>
+        </div>
+        <div className="output-loading-overlay">
+          <div className="ai-pulse-ring">
+            <div className="ai-pulse-dot"></div>
+          </div>
+          <p className="loading-status-text">{statuses[statusIdx]}</p>
+        </div>
       </div>
     );
   }
@@ -23,7 +59,7 @@ function OutputPannel({ result, action, targetLanguage, loading }) {
 
   if (action === "translate") {
     return (
-      <div className="output-full-height">
+      <div className="output-full-height animate-slide-in">
         <CodeEditor
           code={result.translatedCode || ""}
           language={targetLanguage}
@@ -98,7 +134,7 @@ function OutputPannel({ result, action, targetLanguage, loading }) {
   };
 
   return (
-    <div className="output-text-container">
+    <div className="output-text-container animate-slide-in">
       {renderMarkdown(getOutputText())}
     </div>
   );

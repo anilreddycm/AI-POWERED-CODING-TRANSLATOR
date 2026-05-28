@@ -53,7 +53,7 @@ function HomePage() {
   };
 
   return (
-    <div className="home-page-container">
+    <div className="home-page-container animate-fade-slide">
       {/* Translation Bar */}
       <div className="translation-bar">
         <div className="translation-bar-group">

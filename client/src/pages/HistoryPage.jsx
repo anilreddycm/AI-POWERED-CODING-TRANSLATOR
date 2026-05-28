@@ -72,7 +72,7 @@ function HistoryPage() {
   };
 
   return (
-    <div className="history-container">
+    <div className="history-container animate-fade-slide">
       <div className="history-page-header">
         <h1>Translation History</h1>
         <div className="history-header-actions">

@@ -146,6 +146,7 @@
   background: var(--btn-bg);
   color: var(--btn-text);
   border-color: var(--btn-bg);
+  animation: float 3s ease-in-out infinite;
 }
 
 .action-btn:disabled {
