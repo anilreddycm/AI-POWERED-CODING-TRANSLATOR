@@ -5,7 +5,8 @@
   flex: 1;
   overflow: hidden;
   height: calc(100vh - 56px); /* subtract navbar height */
-  background: #fdfdfd;
+  background: var(--bg-tertiary);
+  transition: background-color var(--transition-speed) ease;
 }
 
 .editor-panel, 
@@ -14,8 +15,9 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #e5e5e5;
-  background: #ffffff;
+  border-right: 1px solid var(--border-color);
+  background: var(--bg-primary);
+  transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
 }
 
 .output-panel {
@@ -28,18 +30,20 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
-  border-bottom: 1px solid #e5e5e5;
-  background: #fafafa;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-secondary);
   flex-shrink: 0;
+  transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
 }
 
 .panel-title {
   font-size: 14px;
   font-weight: 700;
-  color: #333333;
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   gap: 8px;
+  transition: color var(--transition-speed) ease;
 }
 
 .panel-controls {
@@ -59,13 +63,14 @@
 
 .panel-footer {
   height: 60px;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
-  background: #fafafa;
+  background: var(--bg-secondary);
   flex-shrink: 0;
+  transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
 }
 
 /* Run actions buttons */
@@ -73,32 +78,34 @@
   height: 32px;
   font-size: 13px;
   font-weight: 600;
-  color: #333333;
-  border: 1px solid #e5e5e5;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
   border-radius: 6px;
-  background: #ffffff;
+  background: var(--bg-primary);
   padding: 0 10px;
   outline: none;
+  transition: all var(--transition-speed) ease;
 }
 
 .run-btn {
   padding: 8px 20px;
-  background: #111111;
-  color: #ffffff;
+  background: var(--btn-bg);
+  color: var(--btn-text);
   border: none;
   border-radius: 6px;
   font-size: 13px;
   font-weight: 600;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s;
+  transition: all var(--transition-speed) ease;
 }
 
 .run-btn:hover:not(:disabled) {
-  background: #333333;
+  background: var(--btn-hover);
 }
 
 .run-btn:disabled {
-  background: #999999;
+  background: var(--text-muted);
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
@@ -113,6 +120,6 @@
   .output-panel {
     width: 100%;
     height: 500px;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid var(--border-color);
   }
 }

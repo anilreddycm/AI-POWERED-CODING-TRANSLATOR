@@ -1,12 +1,14 @@
 import { useContext } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext.jsx';
+import { ThemeContext } from '../context/ThemeContext.jsx';
 import { logout as logoutAPI } from '../services/authService.js';
 import toast from 'react-hot-toast';
 import '../styles/navbar.css';
 
 function Navbar() {
   const { user, logout } = useContext(AuthContext);
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -29,6 +31,14 @@ function Navbar() {
         </div>
       </div>
       <div className="navbar-right">
+        <button 
+          className="theme-toggle-btn" 
+          onClick={toggleTheme}
+          title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          aria-label="Toggle Theme"
+        >
+          {theme === 'dark' ? '☀️' : '🌙'}
+        </button>
         {user?.picture && <img src={user.picture} alt="" className="navbar-avatar" />}
         <span className="navbar-username">{user?.name}</span>
         <button className="navbar-logout" onClick={handleLogout}>Logout</button>

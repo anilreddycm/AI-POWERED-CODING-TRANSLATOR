@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import Editor from "@monaco-editor/react";
+import { ThemeContext } from "../context/ThemeContext.jsx";
 
 function CodeEditor({ code, onChange, language, readonly = false }) {
+  const { theme } = useContext(ThemeContext);
+
   // Normalize language names for Monaco editor
   const getMonacoLanguage = (lang) => {
     if (lang === "cpp") return "cpp";
@@ -9,7 +13,17 @@ function CodeEditor({ code, onChange, language, readonly = false }) {
   };
 
   return (
-    <div className="code-editor-container" style={{ height: "100%", width: "100%", borderRadius: "8px", overflow: "hidden", border: "1px solid #e5e5e5" }}>
+    <div 
+      className="code-editor-container" 
+      style={{ 
+        height: "100%", 
+        width: "100%", 
+        borderRadius: "8px", 
+        overflow: "hidden", 
+        border: "1px solid var(--border-color)",
+        transition: "border-color var(--transition-speed) ease"
+      }}
+    >
       <Editor
         height="100%"
         language={getMonacoLanguage(language)}
@@ -23,7 +37,7 @@ function CodeEditor({ code, onChange, language, readonly = false }) {
           lineNumbers: "on",
           automaticLayout: true,
           scrollBeyondLastLine: false,
-          theme: "vs-light",
+          theme: theme === "dark" ? "vs-dark" : "vs-light",
           wordWrap: "on",
         }}
       />
@@ -32,4 +46,3 @@ function CodeEditor({ code, onChange, language, readonly = false }) {
 }
 
 export default CodeEditor;
-// We can style container with border, height, etc.

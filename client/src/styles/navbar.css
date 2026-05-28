@@ -6,10 +6,11 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 24px;
-  border-bottom: 1px solid #e5e5e5;
-  background: #ffffff;
+  border-bottom: 1px solid var(--navbar-border);
+  background: var(--navbar-bg);
   flex-shrink: 0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
 }
 
 .navbar-left {
@@ -21,9 +22,10 @@
 .navbar-brand {
   font-size: 20px;
   font-weight: 800;
-  color: #111111;
+  color: var(--navbar-text);
   letter-spacing: -0.3px;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: color var(--transition-speed) ease;
 }
 
 .navbar-links {
@@ -36,17 +38,18 @@
   font-weight: 500;
   padding: 7px 16px;
   border-radius: 6px;
-  color: #666666;
+  color: var(--navbar-link-text);
+  transition: all var(--transition-speed) ease;
 }
 
 .navbar-link:hover {
-  color: #111111;
-  background: #f5f5f5;
+  color: var(--navbar-link-hover-text);
+  background: var(--navbar-link-hover-bg);
 }
 
 .navbar-link.active {
-  background: #111111;
-  color: #ffffff;
+  background: var(--navbar-link-active-bg);
+  color: var(--navbar-link-active-text);
 }
 
 .navbar-right {
@@ -59,27 +62,55 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
+  border: 1px solid var(--border-color);
 }
 
 .navbar-username {
   font-size: 14px;
   font-weight: 500;
-  color: #333333;
+  color: var(--text-secondary);
+  transition: color var(--transition-speed) ease;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 16px;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+  margin-right: 4px;
+}
+
+.theme-toggle-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+  background: var(--navbar-link-hover-bg);
+  transform: scale(1.05);
 }
 
 .navbar-logout {
   font-size: 13px;
   font-weight: 500;
-  color: #666666;
+  color: var(--text-muted);
   background: none;
-  border: 1px solid #e5e5e5;
+  border: 1px solid var(--border-color);
   padding: 5px 12px;
   border-radius: 6px;
+  transition: all var(--transition-speed) ease;
 }
 
 .navbar-logout:hover {
-  color: #111111;
-  border-color: #111111;
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+  background: var(--navbar-link-hover-bg);
 }
 
 @media (max-width: 600px) {

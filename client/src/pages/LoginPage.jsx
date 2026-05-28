@@ -150,7 +150,7 @@ function LoginPage() {
               We've sent a 6-digit code to <strong>{otpEmail}</strong>. Enter it below to activate your account.
             </p>
             <p className="login-form-subtitle" style={{ fontSize: '13px', color: '#e056fd', marginTop: '-12px', marginBottom: '24px' }}>
-              ⚠️ <strong>Note:</strong> If you don't receive the email, please check your <strong>Spam / Junk</strong> folder.
+              <strong>Note:</strong> If you don't receive the email, please check your <strong>Spam / Junk</strong> folder.
             </p>
 
             <form className="login-email-form" onSubmit={handleVerifyOtp}>
