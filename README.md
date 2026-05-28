@@ -236,6 +236,8 @@ All `/api/code/*` and `/api/history/*` routes require a valid JWT token in the `
 
 ## 🧠 Technical Highlights
 
+- **Multi-Provider AI Fallback & Key Rotation** — Features a resilient AI routing system that rotates multiple API keys round-robin per provider and cascades across multiple AI providers (Google Gemini → Groq → OpenRouter) to maximize free-tier limits, prevent rate-limiting, and guarantee high availability.
+
 - **Adapter Pattern for Database Resilience** — The data models implement a dual-storage adapter that automatically switches between MongoDB Atlas and a local JSON file-based database. If the MongoDB connection fails, the app seamlessly continues operating with zero downtime.
 
 - **Engineered LLM System Prompts** — Each AI feature (translate, analyze, explain, optimize) uses carefully crafted system-level prompts to ensure consistent, structured, and high-quality outputs from Gemini 2.5 Flash.
