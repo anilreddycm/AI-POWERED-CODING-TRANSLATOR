@@ -3,7 +3,7 @@ import { useNavigate, Navigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../context/AuthContext.jsx';
-import { register, emailLogin, googleLogin } from '../services/authService.js';
+import { register, emailLogin, googleLogin, verifyOTP, resendOTP } from '../services/authService.js';
 import '../styles/login.css';
 
 const features = [
@@ -23,6 +23,11 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // OTP Verification States
+  const [showOtpVerification, setShowOtpVerification] = useState(false);
+  const [otpCode, setOtpCode] = useState('');
+  const [otpEmail, setOtpEmail] = useState('');
+
   if (user) return <Navigate to="/" />;
 
   const handleSubmit = async (e) => {
@@ -35,14 +40,58 @@ function LoginPage() {
 
     setLoading(true);
     try {
-      const result = isSignUp
-        ? await register(name, email, password)
-        : await emailLogin(email, password);
+      if (isSignUp) {
+        const result = await register(name, email, password);
+        setOtpEmail(result.email || email);
+        setShowOtpVerification(true);
+        toast.success(result.message || 'OTP verification sent to your email.');
+      } else {
+        const result = await emailLogin(email, password);
+        login(result.token, result.user);
+        toast.success(`Welcome back, ${result.user.name}!`);
+        navigate('/');
+      }
+    } catch (err) {
+      if (err.response?.status === 403 && err.response?.data?.isNotVerified) {
+        setOtpEmail(err.response.data.email || email);
+        setShowOtpVerification(true);
+        toast.error(err.response.data.message || 'Please verify your email.');
+      } else {
+        toast.error(err.response?.data?.message || 'Something went wrong.');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleVerifyOtp = async (e) => {
+    e.preventDefault();
+    if (loading) return;
+    if (!otpCode || otpCode.length !== 6) {
+      return toast.error('Please enter a valid 6-digit verification code.');
+    }
+
+    setLoading(true);
+    try {
+      const result = await verifyOTP(otpEmail, otpCode);
       login(result.token, result.user);
-      toast.success(isSignUp ? `Welcome, ${result.user.name}!` : `Welcome back, ${result.user.name}!`);
+      toast.success(`Email verified! Welcome, ${result.user.name}!`);
       navigate('/');
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Something went wrong.');
+      toast.error(err.response?.data?.message || 'Invalid or expired verification code.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleResendOtp = async () => {
+    if (loading) return;
+    setLoading(true);
+    try {
+      const result = await resendOTP(otpEmail);
+      toast.success(result.message || 'Verification code resent successfully.');
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Failed to resend code.');
     } finally {
       setLoading(false);
     }
@@ -59,38 +108,99 @@ function LoginPage() {
     }
   };
 
-  return (
-    <div className="login-page">
-      {/* Left */}
-      <div className="login-left">
-        <div>
-          <div className="login-logo">
-            <div className="login-logo-icon">{`</>`}</div>
-            <span className="login-logo-text">CodeTranslator</span>
-          </div>
+  // Branding Panel component to reuse
+  const renderBrandingPanel = () => (
+    <div className="login-left">
+      <div>
+        <div className="login-logo">
+          <div className="login-logo-icon">{`</>`}</div>
+          <span className="login-logo-text">CodeTranslator</span>
+        </div>
 
-          <h1 className="login-hero-title">Translate, Analyze &amp; Optimize Your Code</h1>
-          <p className="login-hero-subtitle">
-            AI-powered code assistant that helps you work across programming languages effortlessly.
-          </p>
+        <h1 className="login-hero-title">Translate, Analyze &amp; Optimize Your Code</h1>
+        <p className="login-hero-subtitle">
+          AI-powered code assistant that helps you work across programming languages effortlessly.
+        </p>
 
-          <div className="login-features">
-            {features.map((f, i) => (
-              <div key={i} className="login-feature-card">
-                <div className="login-feature-icon">{f.icon}</div>
-                <div>
-                  <div className="login-feature-title">{f.title}</div>
-                  <div className="login-feature-desc">{f.desc}</div>
-                </div>
+        <div className="login-features">
+          {features.map((f, i) => (
+            <div key={i} className="login-feature-card">
+              <div className="login-feature-icon">{f.icon}</div>
+              <div>
+                <div className="login-feature-title">{f.title}</div>
+                <div className="login-feature-desc">{f.desc}</div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
 
-          <div className="login-footer">Powered by AI. Built for developers.</div>
+        <div className="login-footer">Powered by AI. Built for developers.</div>
+      </div>
+    </div>
+  );
+
+  if (showOtpVerification) {
+    return (
+      <div className="login-page">
+        {renderBrandingPanel()}
+        <div className="login-right">
+          <div className="login-form">
+            <h2>Verify Your Email</h2>
+            <p className="login-form-subtitle">
+              We've sent a 6-digit code to <strong>{otpEmail}</strong>. Enter it below to activate your account.
+            </p>
+
+            <form className="login-email-form" onSubmit={handleVerifyOtp}>
+              <input
+                type="text"
+                className="login-input"
+                placeholder="0 0 0 0 0 0"
+                value={otpCode}
+                onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, '').substring(0, 6))}
+                maxLength={6}
+                required
+                style={{
+                  textAlign: 'center',
+                  fontSize: '22px',
+                  letterSpacing: '8px',
+                  fontWeight: 'bold',
+                  fontFamily: 'monospace'
+                }}
+              />
+              <button type="submit" className="login-submit-btn" disabled={loading}>
+                {loading ? 'Verifying...' : 'Verify Code'}
+              </button>
+            </form>
+
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+              <button
+                type="button"
+                className="login-toggle-btn"
+                onClick={() => {
+                  setShowOtpVerification(false);
+                  setOtpCode('');
+                }}
+              >
+                Back to Sign In
+              </button>
+              <button
+                type="button"
+                className="login-toggle-btn"
+                onClick={handleResendOtp}
+                disabled={loading}
+              >
+                Resend Code
+              </button>
+            </div>
+          </div>
         </div>
       </div>
+    );
+  }
 
-      {/* Right */}
+  return (
+    <div className="login-page">
+      {renderBrandingPanel()}
       <div className="login-right">
         <div className="login-form">
           <h2>{isSignUp ? 'Create Account' : 'Sign In'}</h2>
@@ -132,7 +242,12 @@ function LoginPage() {
             <button
               type="button"
               className="login-toggle-btn"
-              onClick={() => { setIsSignUp(!isSignUp); setName(''); setEmail(''); setPassword(''); }}
+              onClick={() => {
+                setIsSignUp(!isSignUp);
+                setName('');
+                setEmail('');
+                setPassword('');
+              }}
             >
               {isSignUp ? 'Sign In' : 'Sign Up'}
             </button>

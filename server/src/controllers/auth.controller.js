@@ -24,6 +24,41 @@ export const login = async (req, res, next) => {
     const result = await authService.loginUser(email, password);
     res.status(200).json(result);
   } catch (error) {
+    if (error.isNotVerified) {
+      return res.status(403).json({
+        message: error.message,
+        isNotVerified: true,
+        email,
+      });
+    }
+    next(error);
+  }
+};
+
+export const verifyEmailOTP = async (req, res, next) => {
+  try {
+    const { email, otp } = req.body;
+    if (!email || !otp) {
+      res.status(400);
+      throw new Error("Email and verification code are required");
+    }
+    const result = await authService.verifyOTP(email, otp);
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const resendEmailOTP = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      res.status(400);
+      throw new Error("Email is required");
+    }
+    const result = await authService.resendOTP(email);
+    res.status(200).json(result);
+  } catch (error) {
     next(error);
   }
 };
@@ -44,7 +79,6 @@ export const googleLogin = async (req, res, next) => {
 
 export const logout = async (req, res, next) => {
   try {
-    // Statless JWT logout can just return success, client deletes token.
     res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
     next(error);

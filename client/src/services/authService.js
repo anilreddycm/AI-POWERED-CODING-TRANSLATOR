@@ -15,6 +15,16 @@ export const googleLogin = async (token) => {
   return response.data;
 };
 
+export const verifyOTP = async (email, otp) => {
+  const response = await API.post("/auth/verify-otp", { email, otp });
+  return response.data;
+};
+
+export const resendOTP = async (email) => {
+  const response = await API.post("/auth/resend-otp", { email });
+  return response.data;
+};
+
 export const logout = async () => {
   const response = await API.post("/auth/logout");
   return response.data;
