@@ -11,11 +11,12 @@
     "name": "ANIL REDDY",
     "email": "anilreddycm2004@gmail.com",
     "password": "$2b$10$Mq/qSblDp6egEGn/KkUR3.YEJxt0yB.Wt2azQjzuKIH3YZQOnaNri",
-    "isVerified": false,
-    "isGoogleUser": false,
+    "isVerified": true,
+    "isGoogleUser": true,
     "otp": "304954",
     "otpExpiry": "2026-05-28T07:29:29.274Z",
     "_id": "0il0s4l",
-    "createdAt": "2026-05-28T07:19:29.274Z"
+    "createdAt": "2026-05-28T07:19:29.274Z",
+    "picture": "https://lh3.googleusercontent.com/a/ACg8ocIECeZsQfWATBRxwwdstJaUvXZS1X9yDgNHDW5k4hp0u2o2FoDy=s96-c"
   }
 ]
