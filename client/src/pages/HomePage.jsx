@@ -21,23 +21,24 @@ function HomePage() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
 
-  const handleRun = async () => {
+  const handleActionClick = async (selectedAction) => {
     if (!code.trim()) {
       return toast.error("Please enter some code to run.");
     }
 
+    setAction(selectedAction);
     setLoading(true);
     setResult(null);
 
     try {
       let data;
-      if (action === "translate") {
+      if (selectedAction === "translate") {
         data = await translateCode(code, sourceLang, targetLang);
-      } else if (action === "complexity") {
+      } else if (selectedAction === "complexity") {
         data = await analyzeComplexity(code, sourceLang);
-      } else if (action === "explain") {
+      } else if (selectedAction === "explain") {
         data = await explainCode(code, sourceLang);
-      } else if (action === "optimize") {
+      } else if (selectedAction === "optimize") {
         data = await optimizeCode(code, sourceLang);
       }
 
@@ -80,9 +81,6 @@ function HomePage() {
         <div className="editor-panel">
           <div className="panel-header">
             <div className="panel-title">Source Code</div>
-            <button className="run-btn" onClick={handleRun} disabled={loading}>
-              {loading ? "Processing..." : "Run Action"}
-            </button>
           </div>
           <div className="editor-content">
             <CodeEditor
@@ -97,7 +95,7 @@ function HomePage() {
               <button
                 type="button"
                 className={`action-btn ${action === "translate" ? "active" : ""}`}
-                onClick={() => setAction("translate")}
+                onClick={() => handleActionClick("translate")}
                 disabled={loading}
               >
                 Translate Code
@@ -105,7 +103,7 @@ function HomePage() {
               <button
                 type="button"
                 className={`action-btn ${action === "complexity" ? "active" : ""}`}
-                onClick={() => setAction("complexity")}
+                onClick={() => handleActionClick("complexity")}
                 disabled={loading}
               >
                 Analyze Complexity
@@ -113,7 +111,7 @@ function HomePage() {
               <button
                 type="button"
                 className={`action-btn ${action === "explain" ? "active" : ""}`}
-                onClick={() => setAction("explain")}
+                onClick={() => handleActionClick("explain")}
                 disabled={loading}
               >
                 Explain Code
@@ -121,7 +119,7 @@ function HomePage() {
               <button
                 type="button"
                 className={`action-btn ${action === "optimize" ? "active" : ""}`}
-                onClick={() => setAction("optimize")}
+                onClick={() => handleActionClick("optimize")}
                 disabled={loading}
               >
                 Optimize Code
