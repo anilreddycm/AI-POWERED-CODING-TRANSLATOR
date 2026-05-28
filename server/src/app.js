@@ -28,7 +28,7 @@ if (process.env.NODE_ENV === "production") {
   const clientBuildPath = path.resolve(__dirname, "../../client/dist");
   app.use(express.static(clientBuildPath));
 
-  app.get("/*", (req, res, next) => {
+  app.get('/{*splat}', (req, res, next) => {
     // If request starts with /api/, bypass serving index.html and let error handlers run
     if (req.path.startsWith("/api/")) {
       return next();
