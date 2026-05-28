@@ -43,7 +43,6 @@ function HomePage() {
       }
 
       setResult(data);
-      toast.success("Processed successfully!");
     } catch (error) {
       console.error(error);
       const errMsg = error.response?.data?.message || "Action failed. Check API configurations.";
