@@ -9,6 +9,11 @@ import "./styles/components.css";
 function App() {
   return (
     <div className="app-shell">
+      <div className="animated-bg">
+        <div className="animated-bg-circle circle-1"></div>
+        <div className="animated-bg-circle circle-2"></div>
+        <div className="animated-bg-circle circle-3"></div>
+      </div>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         

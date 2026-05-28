@@ -110,7 +110,7 @@ function LoginPage() {
 
   // Branding Panel component to reuse
   const renderBrandingPanel = () => (
-    <div className="login-left">
+    <div className="login-left animate-fade-in-left">
       <div>
         <div className="login-logo">
           <div className="login-logo-icon">{`</>`}</div>
@@ -143,7 +143,7 @@ function LoginPage() {
     return (
       <div className="login-page">
         {renderBrandingPanel()}
-        <div className="login-right">
+        <div className="login-right animate-fade-in-right">
           <div className="login-form">
             <h2>Verify Your Email</h2>
             <p className="login-form-subtitle">
@@ -204,7 +204,7 @@ function LoginPage() {
   return (
     <div className="login-page">
       {renderBrandingPanel()}
-      <div className="login-right">
+      <div className="login-right animate-fade-in-right">
         <div className="login-form">
           <h2>{isSignUp ? 'Create Account' : 'Sign In'}</h2>
           <p className="login-form-subtitle">
