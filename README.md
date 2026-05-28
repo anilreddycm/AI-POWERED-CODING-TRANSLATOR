@@ -4,6 +4,8 @@
 
 ### Translate, Analyze, Explain & Optimize Code Across 12 Languages — Powered by Google Gemini
 
+### 🔗 Live Demo: [https://ai-code-translator-brpn.onrender.com](https://ai-code-translator-brpn.onrender.com)
+
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
 [![Express](https://img.shields.io/badge/Express-5-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/atlas)
