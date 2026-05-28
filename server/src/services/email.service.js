@@ -47,7 +47,7 @@ export const sendOTPEmail = async (toEmail, otpCode, userName) => {
 
     // Simplify the email and supply both plain-text and HTML fallback to improve deliverability to Primary inbox
     const mailOptions = {
-      from: `"CodeTranslator" <${emailUser}>`,
+      from: emailUser,
       to: toEmail,
       subject: `Your Verification Code: ${otpCode}`,
       text: `Hello ${userName || "User"},\n\nYour verification code is: ${otpCode}\n\nThis code will expire in 10 minutes.\n\nBest regards,\nCodeTranslator Support`,
