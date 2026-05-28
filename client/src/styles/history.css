@@ -14,6 +14,46 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.history-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.history-filters {
+  display: flex;
+  gap: 4px;
+  background: var(--bg-secondary);
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.filter-btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  background: none;
+  color: var(--text-secondary);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+}
+
+.filter-btn:hover {
+  color: var(--text-primary);
+  background: var(--navbar-link-hover-bg);
+}
+
+.filter-btn.active {
+  background: var(--btn-bg);
+  color: var(--btn-text);
 }
 
 .history-page-header h1 {

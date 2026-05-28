@@ -1,7 +1,7 @@
 import API from "./api.js";
 
-export const getHistory = async (page = 1, limit = 10) => {
-  const response = await API.get(`/history?page=${page}&limit=${limit}`);
+export const getHistory = async (page = 1, limit = 10, action = "") => {
+  const response = await API.get(`/history?page=${page}&limit=${limit}&action=${action}`);
   return response.data;
 };
 

@@ -12,11 +12,12 @@ function HistoryPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const [selectedEntry, setSelectedEntry] = useState(null);
+  const [filter, setFilter] = useState("");
 
-  const fetchHistory = async (pageNumber) => {
+  const fetchHistory = async (pageNumber, currentFilter) => {
     setLoading(true);
     try {
-      const data = await getHistory(pageNumber, 5);
+      const data = await getHistory(pageNumber, 5, currentFilter);
       setEntries(data.entries);
       setTotalPages(data.totalPages);
       setPage(data.currentPage);
@@ -29,8 +30,13 @@ function HistoryPage() {
   };
 
   useEffect(() => {
-    fetchHistory(page);
-  }, [page]);
+    fetchHistory(page, filter);
+  }, [page, filter]);
+
+  const handleFilterChange = (newFilter) => {
+    setFilter(newFilter);
+    setPage(1);
+  };
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this log?")) return;
@@ -40,7 +46,7 @@ function HistoryPage() {
       if (entries.length === 1 && page > 1) {
         setPage(page - 1);
       } else {
-        fetchHistory(page);
+        fetchHistory(page, filter);
       }
     } catch (error) {
       console.error(error);
@@ -54,7 +60,7 @@ function HistoryPage() {
       await clearHistory();
       toast.success("History cleared");
       setPage(1);
-      fetchHistory(1);
+      fetchHistory(1, filter);
     } catch (error) {
       console.error(error);
       toast.error("Failed to clear history");
@@ -69,13 +75,47 @@ function HistoryPage() {
     <div className="history-container">
       <div className="history-page-header">
         <h1>Translation History</h1>
-        <button
-          className="history-clear-btn"
-          onClick={handleClearAll}
-          disabled={loading || entries.length === 0}
-        >
-          Clear History
-        </button>
+        <div className="history-header-actions">
+          <div className="history-filters">
+            <button
+              className={`filter-btn ${filter === "" ? "active" : ""}`}
+              onClick={() => handleFilterChange("")}
+            >
+              All
+            </button>
+            <button
+              className={`filter-btn ${filter === "translate" ? "active" : ""}`}
+              onClick={() => handleFilterChange("translate")}
+            >
+              Translations
+            </button>
+            <button
+              className={`filter-btn ${filter === "explain" ? "active" : ""}`}
+              onClick={() => handleFilterChange("explain")}
+            >
+              Explanations
+            </button>
+            <button
+              className={`filter-btn ${filter === "complexity" ? "active" : ""}`}
+              onClick={() => handleFilterChange("complexity")}
+            >
+              Complexity
+            </button>
+            <button
+              className={`filter-btn ${filter === "optimize" ? "active" : ""}`}
+              onClick={() => handleFilterChange("optimize")}
+            >
+              Optimizations
+            </button>
+          </div>
+          <button
+            className="history-clear-btn"
+            onClick={handleClearAll}
+            disabled={loading || entries.length === 0}
+          >
+            Clear History
+          </button>
+        </div>
       </div>
 
       {loading && entries.length === 0 ? (

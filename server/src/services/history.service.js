@@ -5,17 +5,21 @@ export const createHistoryEntry = async (data) => {
     return entry;
 };
 
-export const getUserHistory = async (userId, page = 1, limit = 10) => {
+export const getUserHistory = async (userId, page = 1, limit = 10, action) => {
     const skip = (page - 1) * limit;
+    const query = { userId };
+    if (action) {
+        query.action = action;
+    }
 
     const [entries, totalEntries] = await Promise.all([
-        History.find({ userId })
+        History.find(query)
             .sort({ createdAt: -1 })
             .skip(skip)
             .limit(limit)
             .select("-__v"),
 
-        History.countDocuments({ userId }),
+        History.countDocuments(query),
     ]);
 
     return {

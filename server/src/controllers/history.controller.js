@@ -4,7 +4,8 @@ export const getHistory = async (req, res, next) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
-    const result = await historyService.getUserHistory(req.user._id, page, limit);
+    const action = req.query.action || "";
+    const result = await historyService.getUserHistory(req.user._id, page, limit, action);
     res.status(200).json(result);
   } catch (error) {
     next(error);
